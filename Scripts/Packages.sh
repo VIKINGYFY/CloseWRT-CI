@@ -20,10 +20,10 @@ UPDATE_PACKAGE() {
 
 UPDATE_PACKAGE "mosdns" "sbwml/luci-app-mosdns" "v5"
 
-UPDATE_PACKAGE "design" "gngpp/luci-theme-design" "$([[ $OWRT_URL == *"lede"* ]] && echo "main" || echo "js")"
+UPDATE_PACKAGE "design" "gngpp/luci-theme-design" "js"
 UPDATE_PACKAGE "design-config" "gngpp/luci-app-design-config" "master"
-UPDATE_PACKAGE "argon" "jerrykuku/luci-theme-argon" "$([[ $OWRT_URL == *"lede"* ]] && echo "18.06" || echo "master")"
-UPDATE_PACKAGE "argon-config" "jerrykuku/luci-app-argon-config" "$([[ $OWRT_URL == *"lede"* ]] && echo "18.06" || echo "master")"
+UPDATE_PACKAGE "argon" "jerrykuku/luci-theme-argon" "master"
+UPDATE_PACKAGE "argon-config" "jerrykuku/luci-app-argon-config" "master"
 
 UPDATE_PACKAGE "passwall" "xiaorouji/openwrt-passwall" "main"
 UPDATE_PACKAGE "passwall2" "xiaorouji/openwrt-passwall2" "main"
