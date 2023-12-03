@@ -13,21 +13,21 @@ permissions: write-all
 
 #CI任务
 jobs:
-  cwrt_config:
-    #调用公用编译核心CWRT-CORE.yml
-    uses: ./.github/workflows/CWRT-CORE.yml
+  wrt_config:
+    #调用公用编译核心WRT-CORE.yml
+    uses: ./.github/workflows/WRT-CORE.yml
     with:
       #编译平台
-      CWRT_TARGET: MTK-7981
+      WRT_TARGET: MTK-7981
       #默认主题
-      CWRT_THEME: argon
+      WRT_THEME: argon
       #默认主机名
-      CWRT_NAME: CWRT
+      WRT_NAME: CWRT
       #默认密码，仅作展示，请勿乱改
-      CWRT_PW: 无
+      WRT_PW: 无
       #默认地址
-      CWRT_IP: 192.168.10.1
+      WRT_IP: 192.168.10.1
       #默认源码
-      CWRT_URL: https://github.com/hanwckf/immortalwrt-mt798x.git
+      WRT_URL: https://github.com/hanwckf/immortalwrt-mt798x.git
       #默认分支
-      CWRT_BRANCH: openwrt-21.02
+      WRT_BRANCH: openwrt-21.02
