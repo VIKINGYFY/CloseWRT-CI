@@ -10,7 +10,8 @@ https://github.com/hanwckf/immortalwrt-mt798x
 
 固件信息里的时间为编译开始的时间，方便核对上游源码提交时间。
 
-Mediatek系列。
+Mediatek系列，配套的UBOOT：
+https://github.com/VIKINGYFY/UBOOT-CI/releases
 
 # 目录简要说明：
 
