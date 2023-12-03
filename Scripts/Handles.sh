@@ -55,7 +55,6 @@ if [ -d *"OpenClash"* ]; then
 	CORE_DEV=https://github.com/vernesong/OpenClash/raw/core/dev/dev/clash-linux
 	CORE_MATE=https://github.com/vernesong/OpenClash/raw/core/dev/meta/clash-linux
 
-	CORE_TYPE=$(echo $OWRT_TARGET | egrep -iq "64|86" && echo "amd64" || echo "arm64")
 	TUN_VER=$(curl -sfL $CORE_VER | sed -n "2{s/\r$//;p;q}")
 
 	GEO_MMDB=https://github.com/alecthw/mmdb_china_ip_list/raw/release/lite/Country.mmdb
@@ -72,13 +71,13 @@ if [ -d *"OpenClash"* ]; then
 
 	mkdir ./core/ && cd ./core/
 
-	curl -sfL -o tun.gz "$CORE_TUN"-"$CORE_TYPE"-"$TUN_VER".gz
+	curl -sfL -o tun.gz "$CORE_TUN"-arm64-"$TUN_VER".gz
 	gzip -d tun.gz && mv -f tun clash_tun
 
-	curl -sfL -o meta.tar.gz "$CORE_MATE"-"$CORE_TYPE".tar.gz
+	curl -sfL -o meta.tar.gz "$CORE_MATE"-arm64.tar.gz
 	tar -zxf meta.tar.gz && mv -f clash clash_meta
 
-	curl -sfL -o dev.tar.gz "$CORE_DEV"-"$CORE_TYPE".tar.gz
+	curl -sfL -o dev.tar.gz "$CORE_DEV"-arm64.tar.gz
 	tar -zxf dev.tar.gz
 
 	chmod +x clash*
