@@ -1,5 +1,5 @@
 #CI项目名
-name: Mediatek-Immortal
+name: MTK-7981
 
 on:
   #自动编译：每天早上4点
@@ -13,21 +13,21 @@ permissions: write-all
 
 #CI任务
 jobs:
-  owrt_config:
-    #调用公用编译核心OWRT-CORE.yml
-    uses: ./.github/workflows/OWRT-CORE.yml
+  cwrt_config:
+    #调用公用编译核心CWRT-CORE.yml
+    uses: ./.github/workflows/CWRT-CORE.yml
     with:
       #编译平台
-      OWRT_TARGET: Mediatek
+      CWRT_TARGET: MTK-7981
       #默认主题
-      OWRT_THEME: argon
+      CWRT_THEME: argon
       #默认主机名
-      OWRT_NAME: CWRT
+      CWRT_NAME: CWRT
       #默认密码，仅作展示，请勿乱改
-      OWRT_PW: 无
+      CWRT_PW: 无
       #默认地址
-      OWRT_IP: 192.168.10.1
+      CWRT_IP: 192.168.10.1
       #默认源码
-      OWRT_URL: https://github.com/hanwckf/immortalwrt-mt798x.git
+      CWRT_URL: https://github.com/hanwckf/immortalwrt-mt798x.git
       #默认分支
-      OWRT_BRANCH: openwrt-21.02
+      CWRT_BRANCH: openwrt-21.02
