@@ -9,3 +9,6 @@ sed -i "s/hostname='.*'/hostname='$WRT_NAME'/g" ./package/base-files/files/bin/c
 #修改默认时区
 sed -i "s/timezone='.*'/timezone='CST-8'/g" ./package/base-files/files/bin/config_generate
 sed -i "/timezone='.*'/a\\\t\t\set system.@system[-1].zonename='Asia/Shanghai'" ./package/base-files/files/bin/config_generate
+#修改默认WIFI名
+sed -i "23s/ssid=\".*\"/ssid=\"$WRT_WIFI\"/" ./wrt/package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
+sed -i "29s/ssid=\".*\"/ssid=\"$WRT_WIFI-5G\"/" ./wrt/package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
