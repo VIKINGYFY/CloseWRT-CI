@@ -16,9 +16,3 @@ sed -i "29s/ssid=\".*\"/ssid=\"$WRT_WIFI-5G\"/" ./package/mtk/applications/mtwif
 #配置文件修改
 echo "CONFIG_PACKAGE_luci-theme-$WRT_THEME=y" >> ./.config
 echo "CONFIG_PACKAGE_luci-app-$WRT_THEME-config=y" >> ./.config
-
-if [[ $WRT_URL == *"immortalwrt"* ]] ; then
-	echo "CONFIG_PACKAGE_luci=y" >> ./.config
-	echo "CONFIG_LUCI_LANG_zh_Hans=y" >> ./.config
-	sed -i "s/CONFIG_PACKAGE_luci-app-openclash=y/CONFIG_PACKAGE_luci-app-openclash=n/g" ./.config
-fi
