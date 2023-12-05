@@ -1,3 +1,6 @@
+#通用必选插件，请勿修改
+CONFIG_PACKAGE_luci-app-mtwifi-cfg=y
+CONFIG_PACKAGE_luci-app-turboacc-mtk=y
 #通用必选组件，请勿修改
 CONFIG_DEVEL=y
 CONFIG_TOOLCHAINOPTS=y
@@ -215,7 +218,6 @@ CONFIG_PACKAGE_mii_mgr=y
 CONFIG_PACKAGE_miniupnpd=y
 CONFIG_PACKAGE_mtkhqos_util=y
 CONFIG_PACKAGE_mtwifi-cfg=y
-CONFIG_PACKAGE_mtwifi-cfg-luci=y
 CONFIG_PACKAGE_nano=y
 CONFIG_PACKAGE_openssh-keygen=y
 CONFIG_PACKAGE_openssh-sftp-server=y
