@@ -90,7 +90,7 @@ jobs:
       - name: Cache Toolchain
         uses: actions/cache@main
         with:
-          path: ./wrt/staging_dir
+          path: ${{github.workspace}}/wrt/staging_dir
           key: ${{env.WRT_SOURCE}}-${{env.WRT_TARGET}}
 
       - name: Check Scripts
