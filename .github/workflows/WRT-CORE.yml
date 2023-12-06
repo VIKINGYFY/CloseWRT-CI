@@ -123,13 +123,6 @@ jobs:
 
           make defconfig
 
-      - name: Cleanup Toolchain
-        if: env.WRT_CFG == 'false'
-        run: |
-          cd ./wrt/
-
-          make dirclean
-
       - name: Download Packages
         if: env.WRT_CFG == 'false'
         run: |

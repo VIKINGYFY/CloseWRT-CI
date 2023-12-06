@@ -18,8 +18,6 @@ UPDATE_PACKAGE() {
 	fi
 }
 
-UPDATE_PACKAGE "mosdns" "sbwml/luci-app-mosdns" "v5"
-
 UPDATE_PACKAGE "design" "gngpp/luci-theme-design" "js"
 UPDATE_PACKAGE "design-config" "gngpp/luci-app-design-config" "master"
 UPDATE_PACKAGE "argon" "jerrykuku/luci-theme-argon" "master"
