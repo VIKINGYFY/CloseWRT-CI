@@ -33,4 +33,3 @@ jobs:
       WRT_URL: https://github.com/hanwckf/immortalwrt-mt798x.git
       #默认分支
       WRT_BRANCH: openwrt-21.02
-
