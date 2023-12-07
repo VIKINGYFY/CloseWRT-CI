@@ -89,7 +89,7 @@ jobs:
         with:
           ccache: 'true'
           prefix: ${{github.workspace}}/wrt
-          mixkey: ${{env.WRT_SOURCE}}-${{env.WRT_TARGET}}
+          mixkey: ${{env.WRT_SOURCE}}
 
       - name: Check Scripts
         run: |
