@@ -24,5 +24,5 @@ sed -i "29s/ssid=\".*\"/ssid=\"$WRT_WIFI-5G\"/" $WIFI_FILE
 #配置文件修改
 echo "CONFIG_PACKAGE_luci-theme-$WRT_THEME=y" >> ./.config
 echo "CONFIG_PACKAGE_luci-app-$WRT_THEME-config=y" >> ./.config
-echo "CONFIG_MTK_MEMORY_SHRINK=$([[ $WRT_SHRINK == *true* ]] && echo "y" || echo "n")" >> ./.config
-echo "CONFIG_MTK_MEMORY_SHRINK_AGGRESS=$([[ $WRT_SHRINK == *true* ]] && echo "y" || echo "n")" >> ./.config
+echo "CONFIG_MTK_MEMORY_SHRINK=$([[ $WRT_SHRINK == "true" ]] && echo "y" || echo "n")" >> ./.config
+echo "CONFIG_MTK_MEMORY_SHRINK_AGGRESS=$([[ $WRT_SHRINK == "true" ]] && echo "y" || echo "n")" >> ./.config
