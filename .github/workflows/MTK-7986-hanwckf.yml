@@ -1,5 +1,5 @@
 #CI项目名
-name: MTK-7986
+name: MTK-7986-hanwckf
 
 on:
   #自动编译：每天早上4点
@@ -24,7 +24,7 @@ jobs:
       #默认主机名
       WRT_NAME: CWRT
       #默认WIFI名
-      WRT_WIFI: ImmortalWrt
+      WRT_WIFI: ImmortalWRT
       #默认密码，仅作展示，请勿乱改
       WRT_PW: 无
       #默认地址

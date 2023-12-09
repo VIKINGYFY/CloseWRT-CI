@@ -32,6 +32,10 @@ on:
         required: false
         default: 'false'
         type: string
+      WRT_SHRINK:
+        required: false
+        default: 'false'
+        type: string
 
 env:
   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
@@ -44,6 +48,7 @@ env:
   WRT_IP: ${{inputs.WRT_IP}}
   WRT_PW: ${{inputs.WRT_PW}}
   WRT_CFG: ${{inputs.WRT_CFG}}
+  WRT_SHRINK: ${{inputs.WRT_SHRINK}}
 
 jobs:
   wrt_core:
