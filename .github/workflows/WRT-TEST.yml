@@ -32,3 +32,5 @@ jobs:
       WRT_BRANCH: openwrt-21.02
       #仅输出配置文件，非必选参数
       WRT_CFG: true
+      #内存压缩，可选参数，默认关闭，256内存推荐开启
+      #WRT_SHRINK: true
