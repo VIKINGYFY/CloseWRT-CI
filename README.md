@@ -1,8 +1,11 @@
 # CloseWRT-CI
 云编译CloseWRT固件
 
-源码：
+hanwckf源码：
 https://github.com/hanwckf/immortalwrt-mt798x
+
+padavanonly源码：
+https://github.com/padavanonly/immortalwrt-mt798x
 
 # 固件简要说明：
 
