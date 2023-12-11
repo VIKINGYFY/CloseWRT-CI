@@ -16,8 +16,8 @@ sed -i "/timezone='.*'/a\\\t\t\set system.@system[-1].zonename='Asia/Shanghai'" 
 
 #修改默认WIFI名
 WIFI_FILE="./package/mtk/applications/mtwifi-cfg/files/mtwifi.sh"
-sed -i "23s/ssid=\".*\"/ssid=\"$WRT_WIFI\"/" $WIFI_FILE
-sed -i "29s/ssid=\".*\"/ssid=\"$WRT_WIFI-5G\"/" $WIFI_FILE
+sed -i "/htbsscoex=\"1\"/{n; s/ssid=\".*\"/ssid=\"$WRT_WIFI\"/}" $WIFI_FILE
+sed -i "/htbsscoex=\"0\"/{n; s/ssid=\".*\"/ssid=\"$WRT_WIFI-5G\"/}" $WIFI_FILE
 
 #配置文件修改
 echo "CONFIG_PACKAGE_luci-theme-$WRT_THEME=y" >> ./.config
