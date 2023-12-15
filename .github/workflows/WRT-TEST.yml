@@ -21,7 +21,7 @@ jobs:
       #默认主机名
       WRT_NAME: CWRT
       #默认WIFI名
-      WRT_WIFI: ImmortalWrt
+      WRT_WIFI: CWRT
       #默认密码，仅作提示，修改无用
       WRT_PW: 无
       #默认地址
@@ -30,7 +30,7 @@ jobs:
       WRT_URL: https://github.com/hanwckf/immortalwrt-mt798x.git
       #默认分支
       WRT_BRANCH: openwrt-21.02
-      #仅输出配置文件，非必选参数
+      #仅输出配置文件，可选参数
       WRT_CFG: true
       #内存压缩，可选参数，默认关闭，256内存推荐开启
       #WRT_SHRINK: true
