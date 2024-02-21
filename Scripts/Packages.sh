@@ -27,9 +27,6 @@ UPDATE_PACKAGE "design-config" "gngpp/luci-app-design-config" "master"
 UPDATE_PACKAGE "argon" "jerrykuku/luci-theme-argon" "master"
 UPDATE_PACKAGE "argon-config" "jerrykuku/luci-app-argon-config" "master"
 
-UPDATE_PACKAGE "passwall" "xiaorouji/openwrt-passwall" "main"
-UPDATE_PACKAGE "passwall2" "xiaorouji/openwrt-passwall2" "main"
-UPDATE_PACKAGE "passwall-packages" "xiaorouji/openwrt-passwall-packages" "main"
 UPDATE_PACKAGE "helloworld" "fw876/helloworld" "master"
 UPDATE_PACKAGE "openclash" "vernesong/OpenClash" "dev"
 
