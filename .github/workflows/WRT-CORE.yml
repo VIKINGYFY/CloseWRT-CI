@@ -112,6 +112,10 @@ jobs:
         run: |
           find ./ -maxdepth 2 -type f -iregex ".*\(txt\|sh\)$" -exec dos2unix {} \; -exec chmod +x {} \;
 
+      - name: Check Patches
+        run: |
+          [ -f "$GITHUB_WORKSPACE/Scripts/Patches.sh" ] && $GITHUB_WORKSPACE/Scripts/Patches.sh
+
       - name: Check Caches
         if: env.WRT_CFG == 'false'
         id: check-cache
