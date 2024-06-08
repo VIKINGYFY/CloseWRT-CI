@@ -6,12 +6,12 @@ on:
   workflow_dispatch:
     inputs:
       URL:
-        default: 'https://github.com/hanwckf/immortalwrt-mt798x.git'
+        default: 'hanwckf/immortalwrt-mt798x'
         required: true
         type: choice
         options:
-        - https://github.com/hanwckf/immortalwrt-mt798x.git
-        - https://github.com/padavanonly/immortalwrt-mt798x.git
+        - hanwckf/immortalwrt-mt798x
+        - padavanonly/immortalwrt-mt798x
       BRANCH:
         default: 'openwrt-21.02'
         required: true
@@ -24,12 +24,12 @@ on:
         - MTK-7981
         - MTK-7986
       SHRINK:
-        description: '内存压缩，默认关闭'
+        description: '内存压缩，256M内存推荐开启。'
         default: 'false'
         required: true
         type: boolean
       TEST:
-        description: '仅输出配置文件'
+        description: '仅输出配置文件，不编译固件。'
         default: 'true'
         required: true
         type: boolean
@@ -44,7 +44,7 @@ jobs:
     uses: ./.github/workflows/WRT-CORE.yml
     with:
       #编译平台
-      WRT_TARGET: ${{inputs.TARGET}}
+      WRT_TARGET: https://github.com/${{inputs.TARGET}}.git
       #默认主题
       WRT_THEME: argon
       #默认主机名
@@ -59,7 +59,7 @@ jobs:
       WRT_URL: ${{inputs.URL}}
       #默认分支
       WRT_BRANCH: ${{inputs.BRANCH}}
-      #仅输出配置文件，可选参数
+      #仅输出配置文件
       WRT_TEST: ${{inputs.TEST}}
-      #内存压缩，可选参数，默认关闭，256内存推荐开启
+      #内存压缩，256内存推荐开启
       WRT_SHRINK: ${{inputs.SHRINK}}
