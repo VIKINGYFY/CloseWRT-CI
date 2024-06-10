@@ -10,9 +10,7 @@ on:
         default: 'hanwckf/immortalwrt-mt798x'
         required: true
         type: choice
-        options:
-        - hanwckf/immortalwrt-mt798x
-        - padavanonly/immortalwrt-mt798x
+        options: [hanwckf/immortalwrt-mt798x, padavanonly/immortalwrt-mt798x]
       BRANCH:
         default: 'openwrt-21.02'
         required: true
@@ -21,9 +19,7 @@ on:
         default: 'MTK-7981'
         required: true
         type: choice
-        options:
-        - MTK-7981
-        - MTK-7986
+        options: [MTK-7981, MTK-7986]
       SHRINK:
         description: '内存压缩，256M内存推荐开启。'
         default: 'false'

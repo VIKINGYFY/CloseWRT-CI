@@ -25,7 +25,11 @@ jobs:
     strategy:
       matrix:
         TARGET: [MTK-7981, MTK-7986]
-        SOURCE: [hanwckf/immortalwrt-mt798x, padavanonly/immortalwrt-mt798x]
+        include:
+          - SOURCE: hanwckf/immortalwrt-mt798x
+            BRANCH: openwrt-21.02
+          - SOURCE: padavanonly/immortalwrt-mt798x
+            BRANCH: openwrt-21.02
 
     #调用公用编译核心WRT-CORE.yml
     uses: ./.github/workflows/WRT-CORE.yml
@@ -45,7 +49,7 @@ jobs:
       #默认源码
       WRT_URL: https://github.com/${{matrix.SOURCE}}.git
       #默认分支
-      WRT_BRANCH: openwrt-21.02
+      WRT_BRANCH: ${{matrix.BRANCH}}
       #内存压缩，256内存推荐开启
       WRT_SHRINK: false
       #仅输出配置文件
