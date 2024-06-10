@@ -34,3 +34,7 @@ jobs:
       WRT_URL: https://github.com/hanwckf/immortalwrt-mt798x.git
       #默认分支
       WRT_BRANCH: openwrt-21.02
+      #仅输出配置文件
+      WRT_TEST: false
+      #内存压缩，256内存推荐开启
+      WRT_SHRINK: false
