@@ -1,6 +1,7 @@
-#CI项目名
-name: MTK-7981-padavanonly
+#CI项目
+name: MTK-ONE
 
+#CI计划
 on:
   #自动编译：每天早上4点
   #schedule:
@@ -30,8 +31,6 @@ jobs:
       #默认地址
       WRT_IP: 192.168.10.1
       #默认源码
-      WRT_URL: https://github.com/padavanonly/immortalwrt-mt798x.git
+      WRT_URL: https://github.com/hanwckf/immortalwrt-mt798x.git
       #默认分支
       WRT_BRANCH: openwrt-21.02
-      #内存压缩，可选参数，默认关闭，256内存推荐开启
-      #WRT_SHRINK: true
