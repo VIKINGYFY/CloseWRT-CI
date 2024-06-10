@@ -10,7 +10,7 @@ on:
         default: 'hanwckf/immortalwrt-mt798x'
         required: true
         type: choice
-        options: [hanwckf/immortalwrt-mt798x, padavanonly/immortalwrt-mt798x]
+        options: [hanwckf/immortalwrt-mt798x, padavanonly/immortalwrt-mt798x, Aabandon/immortalwrt-mt798x]
       BRANCH:
         default: 'openwrt-21.02'
         required: true

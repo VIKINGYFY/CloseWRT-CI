@@ -32,6 +32,9 @@ jobs:
           - SOURCE: padavanonly/immortalwrt-mt798x
             BRANCH: openwrt-21.02
             THEME: argon
+          - SOURCE: Aabandon/immortalwrt-mt798x
+            BRANCH: test
+            THEME: argon
 
     #调用公用编译核心WRT-CORE.yml
     uses: ./.github/workflows/WRT-CORE.yml

@@ -7,6 +7,9 @@ https://github.com/hanwckf/immortalwrt-mt798x
 PADAVANONLY源码：
 https://github.com/padavanonly/immortalwrt-mt798x
 
+AABANDON源码：
+https://github.com/Aabandon/immortalwrt-mt798x
+
 # 固件简要说明：
 
 固件每天早上4点自动编译。
