@@ -1,5 +1,5 @@
 #CI项目
-name: MTK-ALL
+name: CWRT-ALL
 
 #CI计划
 on:
@@ -21,6 +21,7 @@ jobs:
         TARGET: [MTK-7981, MTK-7986]
         SOURCE: [hanwckf/immortalwrt-mt798x, padavanonly/immortalwrt-mt798x]
 
+    #调用公用编译核心WRT-CORE.yml
     uses: ./.github/workflows/WRT-CORE.yml
     with:
       #编译平台
@@ -39,3 +40,7 @@ jobs:
       WRT_URL: https://github.com/${{matrix.SOURCE}}.git
       #默认分支
       WRT_BRANCH: openwrt-21.02
+      #仅输出配置文件
+      WRT_TEST: false
+      #内存压缩，256内存推荐开启
+      WRT_SHRINK: false
