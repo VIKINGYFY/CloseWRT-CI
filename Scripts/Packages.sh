@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#更新软件包
+#安装和更新软件包
 UPDATE_PACKAGE() {
 	local PKG_NAME=$1
 	local PKG_REPO=$2
