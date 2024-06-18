@@ -27,6 +27,7 @@ UPDATE_PACKAGE "argon-config" "jerrykuku/luci-app-argon-config" "master"
 
 UPDATE_PACKAGE "helloworld" "fw876/helloworld" "master"
 UPDATE_PACKAGE "openclash" "vernesong/OpenClash" "dev"
+UPDATE_PACKAGE "passwall" "xiaorouji/openwrt-passwall" "main"
 
 #更新软件包版本
 UPDATE_VERSION() {
@@ -51,4 +52,18 @@ UPDATE_VERSION() {
 	fi
 }
 
+UPDATE_VERSION "brook" "txthinking/brook"
+UPDATE_VERSION "chinadns-ng" "zfl9/chinadns-ng"
+UPDATE_VERSION "dns2tcp" "zfl9/dns2tcp"
+UPDATE_VERSION "hysteria" "apernet/hysteria"
+UPDATE_VERSION "ipt2socks" "zfl9/ipt2socks"
+UPDATE_VERSION "microsocks" "rofl0r/microsocks"
+UPDATE_VERSION "naiveproxy" "klzgrad/naiveproxy"
+UPDATE_VERSION "shadowsocks-rust" "shadowsocks/shadowsocks-rust"
 UPDATE_VERSION "sing-box" "SagerNet/sing-box"
+UPDATE_VERSION "trojan-go" "p4gefau1t/trojan-go"
+UPDATE_VERSION "trojan" "trojan-gfw/trojan"
+UPDATE_VERSION "v2ray-core" "v2fly/v2ray-core"
+UPDATE_VERSION "v2ray-plugin" "teddysun/v2ray-plugin"
+UPDATE_VERSION "xray-core" "XTLS/Xray-core"
+UPDATE_VERSION "xray-plugin" "teddysun/xray-plugin"
