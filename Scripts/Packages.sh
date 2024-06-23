@@ -30,7 +30,6 @@ UPDATE_PACKAGE "passwall" "xiaorouji/openwrt-passwall" "main"
 UPDATE_PACKAGE "ssr-plus" "fw876/helloworld" "master"
 
 UPDATE_PACKAGE "gecoosac" "lwb1978/openwrt-gecoosac" "main"
-UPDATE_PACKAGE "tinyfilemanager" "muink/luci-app-tinyfilemanager" "master"
 
 #更新软件包版本
 UPDATE_VERSION() {
