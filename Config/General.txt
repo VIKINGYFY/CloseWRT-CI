@@ -1,4 +1,15 @@
 #通用必选插件，请勿修改
+CONFIG_PACKAGE_cpufreq=y
+CONFIG_PACKAGE_automount=y
+CONFIG_PACKAGE_autosamba=y
+CONFIG_PACKAGE_block-mount=y
+CONFIG_PACKAGE_fdisk=y
+CONFIG_PACKAGE_gdisk=y
+CONFIG_PACKAGE_cfdisk=y
+CONFIG_PACKAGE_cgdisk=y
+CONFIG_PACKAGE_sfdisk=y
+CONFIG_PACKAGE_sgdisk=y
+CONFIG_PACKAGE_htop=y
 CONFIG_PACKAGE_iperf3=y
 CONFIG_PACKAGE_luci-app-eqos-mtk=y
 CONFIG_PACKAGE_luci-app-mtwifi-cfg=y
@@ -137,7 +148,6 @@ CONFIG_PACKAGE_datconf-lua=y
 CONFIG_PACKAGE_datconf=y
 CONFIG_PACKAGE_ebtables=y
 CONFIG_PACKAGE_ethtool=y
-CONFIG_PACKAGE_htop=y
 CONFIG_PACKAGE_ip-bridge=y
 CONFIG_PACKAGE_ip6tables-extra=y
 CONFIG_PACKAGE_ipset=y
