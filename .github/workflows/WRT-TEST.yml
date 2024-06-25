@@ -15,6 +15,10 @@ on:
         default: 'openwrt-21.02'
         required: true
         type: string
+      PACKAGE:
+        default: 'CONFIG_PACKAGE_luci-app-dockerman=y'
+        required: true
+        type: string
       TARGET:
         default: 'MTK-7981'
         required: true
@@ -56,6 +60,8 @@ jobs:
       WRT_URL: https://github.com/${{inputs.SOURCE}}.git
       #默认分支
       WRT_BRANCH: ${{inputs.BRANCH}}
+      #插件调整
+      WRT_PACKAGE: ${{inputs.PACKAGE}}
       #仅输出配置文件
       WRT_TEST: ${{inputs.TEST || 'false'}}
       #内存压缩，256内存推荐开启
