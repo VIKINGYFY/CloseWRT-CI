@@ -15,10 +15,6 @@ on:
         default: 'openwrt-21.02'
         required: true
         type: string
-      PACKAGE:
-        default: 'CONFIG_PACKAGE_luci-app-dockerman=y'
-        required: true
-        type: string
       TARGET:
         default: 'MTK-7981'
         required: true
@@ -34,6 +30,9 @@ on:
         default: 'true'
         required: true
         type: boolean
+      PACKAGE:
+        required: false
+        type: string
 
 #CI权限
 permissions: write-all
