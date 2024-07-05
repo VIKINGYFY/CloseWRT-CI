@@ -9,15 +9,20 @@ on:
   #手动编译
   workflow_dispatch:
     inputs:
+      PACKAGE:
+        description: '手动调整插件包，仅限一个。'
+        required: false
+        type: string
+      SHRINK:
+        description: '内存低占用模式，默认关闭。'
+        default: 'false'
+        required: false
+        type: boolean
       TEST:
         description: '仅输出配置文件，不编译固件。'
         default: 'false'
         required: false
         type: boolean
-      PACKAGE:
-        description: '手动调整插件包，仅限一个。'
-        required: false
-        type: string
 
 #CI权限
 permissions: write-all
@@ -36,17 +41,17 @@ jobs:
       WRT_NAME: CWRT
       #默认WIFI名
       WRT_WIFI: CWRT
-      #默认密码，仅作提示，修改无用
-      WRT_PW: 无
       #默认地址
       WRT_IP: 192.168.10.1
+      #默认密码，仅作提示，修改无用
+      WRT_PW: 无
       #默认源码
       WRT_URL: https://github.com/Aabandon/immortalwrt-mt798x.git
       #默认分支
       WRT_BRANCH: test
       #插件调整
       WRT_PACKAGE: ${{inputs.PACKAGE}}
+      #内存低占用模式
+      WRT_SHRINK: ${{inputs.SHRINK || 'false'}}
       #仅输出配置文件
       WRT_TEST: ${{inputs.TEST || 'false'}}
-      #内存压缩，256内存推荐开启
-      WRT_SHRINK: false

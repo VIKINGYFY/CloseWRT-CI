@@ -31,12 +31,10 @@ on:
       WRT_PACKAGE:
         required: false
         type: string
-      WRT_TEST:
-        default: 'false'
+      WRT_SHRINK:
         required: false
         type: string
-      WRT_SHRINK:
-        default: 'false'
+      WRT_TEST:
         required: false
         type: string
 
@@ -51,8 +49,8 @@ env:
   WRT_IP: ${{inputs.WRT_IP}}
   WRT_PW: ${{inputs.WRT_PW}}
   WRT_PACKAGE: ${{inputs.WRT_PACKAGE}}
-  WRT_TEST: ${{inputs.WRT_TEST}}
   WRT_SHRINK: ${{inputs.WRT_SHRINK}}
+  WRT_TEST: ${{inputs.WRT_TEST}}
 
 jobs:
   wrt_core:

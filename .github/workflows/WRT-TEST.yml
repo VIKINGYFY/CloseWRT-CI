@@ -20,8 +20,11 @@ on:
         required: true
         type: choice
         options: [MTK-7981, MTK-7986]
+      PACKAGE:
+        required: false
+        type: string
       SHRINK:
-        description: '内存压缩，256M内存推荐开启。'
+        description: '内存低占用模式，默认关闭。'
         default: 'false'
         required: true
         type: boolean
@@ -30,9 +33,6 @@ on:
         default: 'true'
         required: true
         type: boolean
-      PACKAGE:
-        required: false
-        type: string
 
 #CI权限
 permissions: write-all
@@ -51,17 +51,17 @@ jobs:
       WRT_NAME: CWRT
       #默认WIFI名
       WRT_WIFI: CWRT
-      #默认密码，仅作提示，修改无用
-      WRT_PW: 无
       #默认地址
       WRT_IP: 192.168.10.1
+      #默认密码，仅作提示，修改无用
+      WRT_PW: 无
       #默认源码
       WRT_URL: https://github.com/${{inputs.SOURCE}}.git
       #默认分支
       WRT_BRANCH: ${{inputs.BRANCH}}
       #插件调整
       WRT_PACKAGE: ${{inputs.PACKAGE}}
+      #内存低占用模式
+      WRT_SHRINK: ${{inputs.SHRINK || 'false'}}
       #仅输出配置文件
       WRT_TEST: ${{inputs.TEST || 'false'}}
-      #内存压缩，256内存推荐开启
-      WRT_SHRINK: ${{inputs.SHRINK}}
