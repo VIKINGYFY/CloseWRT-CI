@@ -127,7 +127,7 @@ jobs:
         id: check-cache
         uses: actions/cache@main
         with:
-          key: ${{env.WRT_TARGET}}-${{env.WRT_SOURCE}}-${{env.WRT_HASH}}
+          key: ${{env.WRT_TARGET}}-${{env.WRT_SOURCE}}-${{env.WRT_BRANCH}}-${{env.WRT_HASH}}
           path: |
             ./wrt/.ccache
             ./wrt/staging_dir/host*
@@ -172,7 +172,7 @@ jobs:
 
           rm -rf ./tmp* ./.config*
 
-          cat $GITHUB_WORKSPACE/Config/$WRT_TARGET.txt $GITHUB_WORKSPACE/Config/General.txt $GITHUB_WORKSPACE/Config/Package.txt >> .config
+          cat $GITHUB_WORKSPACE/Config/$WRT_TARGET.txt $GITHUB_WORKSPACE/Config/GENERAL.txt $GITHUB_WORKSPACE/Config/PACKAGE.txt >> .config
 
           $GITHUB_WORKSPACE/Scripts/Settings.sh
 
@@ -237,7 +237,8 @@ jobs:
 
             全系带闭源硬件加速，别问了！
 
-            源码：${{env.WRT_SOURCE}}
+            源码：${{env.WRT_URL}}
+            分支：${{env.WRT_BRANCH}}
             平台：${{env.WRT_TARGET}}
             设备：${{env.WRT_TYPE}}
             地址：${{env.WRT_IP}}
