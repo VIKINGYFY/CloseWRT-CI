@@ -38,10 +38,6 @@ jobs:
         TARGET: [MTK-7981, MTK-7986]
         SOURCE: [hanwckf/immortalwrt-mt798x, padavanonly/immortalwrt-mt798x, Aabandon/immortalwrt-mt798x]
         include:
-          - SOURCE: hanwckf/immortalwrt-mt798x
-            BRANCH: openwrt-21.02
-          - SOURCE: padavanonly/immortalwrt-mt798x
-            BRANCH: openwrt-21.02
           - SOURCE: Aabandon/immortalwrt-mt798x
             BRANCH: test
 
@@ -63,7 +59,7 @@ jobs:
       #默认源码
       WRT_URL: https://github.com/${{matrix.SOURCE}}.git
       #默认分支
-      WRT_BRANCH: ${{matrix.BRANCH}}
+      WRT_BRANCH: ${{matrix.BRANCH || 'openwrt-21.02'}}
       #插件调整
       WRT_PACKAGE: ${{inputs.PACKAGE}}
       #内存低占用模式
