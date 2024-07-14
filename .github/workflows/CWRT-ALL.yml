@@ -37,8 +37,11 @@ jobs:
       matrix:
         TARGET: [MTK-7981, MTK-7986]
         SOURCE: [hanwckf/immortalwrt-mt798x, padavanonly/immortalwrt-mt798x, Aabandon/immortalwrt-mt798x]
-        BRANCH: [openwrt-21.02]
         include:
+          - SOURCE: hanwckf/immortalwrt-mt798x
+            BRANCH: openwrt-21.02
+          - SOURCE: padavanonly/immortalwrt-mt798x
+            BRANCH: openwrt-21.02
           - SOURCE: Aabandon/immortalwrt-mt798x
             BRANCH: test
 
