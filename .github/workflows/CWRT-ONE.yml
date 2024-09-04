@@ -24,6 +24,9 @@ on:
         required: false
         type: boolean
 
+env:
+  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
 #CI权限
 permissions: write-all
 
