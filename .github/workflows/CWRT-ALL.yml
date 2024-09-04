@@ -29,17 +29,30 @@ permissions: write-all
 
 #CI任务
 jobs:
-  wrt_config:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete Old Releases
+        uses: dev-drprasad/delete-older-releases@master
+        with:
+          keep_latest: 0
+          delete_tags: true
+
+      - name: Delete Old Workflows
+        uses: Mattraks/delete-workflow-runs@main
+        with:
+          retain_days: 0
+          keep_minimum_runs: 1
+
+  config:
+    needs: cleanup
     name: ${{matrix.TARGET}}
     strategy:
       fail-fast: false
       #max-parallel: 3
       matrix:
         TARGET: [MTK-7981, MTK-7986]
-        SOURCE: [VIKINGYFY/mt798x-immortalwrt, padavanonly/immortalwrt-mt798x]
-        include:
-          - SOURCE: padavanonly/immortalwrt-mt798x
-            BRANCH: openwrt-21.02
+        SOURCE: [hanwckf/immortalwrt-mt798x, padavanonly/immortalwrt-mt798x]
 
     #调用公用编译核心WRT-CORE.yml
     uses: ./.github/workflows/WRT-CORE.yml
@@ -59,7 +72,7 @@ jobs:
       #源码链接
       WRT_REPO: https://github.com/${{matrix.SOURCE}}.git
       #源码分支
-      WRT_BRANCH: ${{matrix.BRANCH || 'main'}}
+      WRT_BRANCH: ${{matrix.BRANCH || 'openwrt-21.02'}}
       #源码名称
       WRT_SOURCE: ${{matrix.SOURCE}}
       #内存低占用模式
