@@ -27,6 +27,7 @@ echo "CONFIG_MTK_MEMORY_SHRINK_AGGRESS=$([[ $WRT_ADJUST == "true" ]] && echo "y"
 #23.05专用
 if [[ $WRT_BRANCH == *"23.05"* ]]; then
 	echo "CONFIG_PACKAGE_luci-app-homeproxy=y" >> ./.config
+	echo "CONFIG_PACKAGE_luci-app-openclash=n" >> ./.config
 fi
 
 #手动调整的插件
