@@ -5,7 +5,7 @@ name: CWRT-ALL
 on:
   #自动编译：每周早上4点
   schedule:
-    - cron: 0 20 * * 0
+    - cron: 0 0 * * 0
   #手动编译
   workflow_dispatch:
     inputs:
@@ -72,7 +72,7 @@ jobs:
       #默认WIFI名
       WRT_WIFI: CWRT
       #默认地址
-      WRT_IP: 192.168.10.1
+      WRT_IP: 192.168.1.1
       #默认密码，仅作提示，修改无用
       WRT_PW: 无
       #源码链接
