@@ -2,8 +2,7 @@
 CONFIG_TARGET_mediatek=y
 CONFIG_TARGET_mediatek_mt7981=y
 #设备列表
-CONFIG_TARGET_DEVICE_mediatek_mt7981_DEVICE_cmcc_rax3000m-emmc=y
-
+CONFIG_TARGET_DEVICE_mediatek_mt7981_DEVICE_cmcc_rax3000m=y
 #必选组件，请勿修改
 CONFIG_first_card_name="MT7981"
 CONFIG_MTK_CHIP_MT7981=y
