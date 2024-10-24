@@ -12,12 +12,12 @@ on:
         type: choice
         options: [MTK-7981, MTK-7986]
       SOURCE:
-        default: 'hanwckf/immortalwrt-mt798x'
+        default: 'padavanonly/immortalwrt-mt798x-23.05'
         required: true
         type: choice
         options: [hanwckf/immortalwrt-mt798x, padavanonly/immortalwrt-mt798x, padavanonly/immortalwrt-mt798x-23.05]
       BRANCH:
-        default: 'openwrt-21.02'
+        default: 'openwrt-23.05'
         required: true
         type: string
       ADJUST:
