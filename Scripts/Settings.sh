@@ -33,11 +33,9 @@ fi
 
 #23.05专用
 if [[ $WRT_BRANCH == *"23.05"* ]]; then
-	sed -i '/luci-app-passwall/d' ./.config
 	sed -i '/luci-app-upnp/d' ./.config
 	sed -i '/miniupnpd/d' ./.config
 
-	echo "CONFIG_PACKAGE_luci-app-passwall=n" >> ./.config
 	echo "CONFIG_PACKAGE_luci-app-upnp=n" >> ./.config
 	echo "CONFIG_PACKAGE_miniupnpd=n" >> ./.config
 
