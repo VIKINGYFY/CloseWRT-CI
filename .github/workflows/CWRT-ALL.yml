@@ -55,10 +55,10 @@ jobs:
       max-parallel: 3
       matrix:
         TARGET: [MTK-7981, MTK-7986]
-        SOURCE: [hanwckf/immortalwrt-mt798x, padavanonly/immortalwrt-mt798x, padavanonly/immortalwrt-mt798x-23.05]
-        include:
-          - SOURCE: padavanonly/immortalwrt-mt798x-23.05
-            BRANCH: openwrt-23.05
+        REPO_INFO:
+          - {SOURCE: hanwckf/immortalwrt-mt798x, BRANCH: openwrt-21.02}
+          - {SOURCE: padavanonly/immortalwrt-mt798x, BRANCH: openwrt-21.02}
+          - {SOURCE: padavanonly/immortalwrt-mt798x-23.05, BRANCH: openwrt-23.05}
 
     #调用公用编译核心WRT-CORE.yml
     uses: ./.github/workflows/WRT-CORE.yml
@@ -69,18 +69,20 @@ jobs:
       WRT_THEME: argon
       #默认主机名
       WRT_NAME: CWRT
-      #默认WIFI名
-      WRT_WIFI: CWRT
+      #默认WIFI名称
+      WRT_SSID: CWRT
+      #默认WIFI密码
+      WRT_WORD: 12345678
       #默认地址
       WRT_IP: 192.168.10.1
       #默认密码，仅作提示，修改无用
       WRT_PW: 无
       #源码链接
-      WRT_REPO: https://github.com/${{matrix.SOURCE}}.git
+      WRT_REPO: https://github.com/${{matrix.REPO_INFO.SOURCE}}.git
       #源码分支
-      WRT_BRANCH: ${{matrix.BRANCH || 'openwrt-21.02'}}
+      WRT_BRANCH: ${{matrix.REPO_INFO.BRANCH}}
       #源码名称
-      WRT_SOURCE: ${{matrix.SOURCE}}
+      WRT_SOURCE: ${{matrix.REPO_INFO.SOURCE}}
       #内存低占用模式
       WRT_ADJUST: ${{inputs.ADJUST}}
       #插件调整
