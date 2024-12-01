@@ -17,8 +17,6 @@ CFG_FILE="./package/base-files/files/bin/config_generate"
 sed -i "s/192\.168\.[0-9]*\.[0-9]*/$WRT_IP/g" $CFG_FILE
 #修改默认主机名
 sed -i "s/hostname='.*'/hostname='$WRT_NAME'/g" $CFG_FILE
-#修改默认时区
-sed -i "s/timezone='.*'/timezone='Asia\/Shanghai'/g" $CFG_FILE
 
 #配置文件修改
 echo "CONFIG_PACKAGE_luci=y" >> ./.config
@@ -35,11 +33,9 @@ fi
 
 #23.05专用
 if [[ $WRT_BRANCH == *"23.05"* ]]; then
-	sed -i '/luci-app-openclash/d' ./.config
 	sed -i '/luci-app-upnp/d' ./.config
 	sed -i '/miniupnpd/d' ./.config
 
-	echo "CONFIG_PACKAGE_luci-app-openclash=n" >> ./.config
 	echo "CONFIG_PACKAGE_luci-app-upnp=n" >> ./.config
 	echo "CONFIG_PACKAGE_miniupnpd=n" >> ./.config
 
