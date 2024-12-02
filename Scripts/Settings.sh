@@ -43,5 +43,6 @@ if [[ $WRT_BRANCH == *"23.05"* ]]; then
 	echo "CONFIG_PACKAGE_miniupnpd=n" >> ./.config
 
 	echo "CONFIG_PACKAGE_luci-app-homeproxy=y" >> ./.config
+	echo "CONFIG_PACKAGE_luci-app-mihomo=y" >> ./.config
 	echo "CONFIG_PACKAGE_luci-app-upnp-mtk-adjust=y" >> ./.config
 fi
