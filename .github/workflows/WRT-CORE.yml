@@ -61,7 +61,7 @@ env:
 jobs:
   core:
     name: ${{inputs.WRT_SOURCE}}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout Projects
         uses: actions/checkout@main
@@ -95,7 +95,7 @@ jobs:
           sudo -E apt -yqq autoremove --purge
           sudo -E apt -yqq autoclean
           sudo -E apt -yqq clean
-          sudo -E apt -yqq install dos2unix
+          sudo -E apt -yqq install dos2unix libfuse-dev
           sudo bash -c 'bash <(curl -sL https://build-scripts.immortalwrt.org/init_build_environment.sh)'
           sudo -E systemctl daemon-reload
           sudo -E timedatectl set-timezone "Asia/Shanghai"
@@ -128,6 +128,7 @@ jobs:
         uses: actions/cache@main
         with:
           key: ${{env.WRT_TARGET}}-${{env.WRT_VER}}-${{env.WRT_HASH}}
+          restore-keys: ${{env.WRT_TARGET}}-${{env.WRT_VER}}
           path: |
             ./wrt/.ccache
             ./wrt/staging_dir/host*
@@ -136,12 +137,19 @@ jobs:
       - name: Update Caches
         if: env.WRT_TEST != 'true'
         run: |
-          if ${{steps.check-cache.outputs.cache-hit == 'true'}}; then
-            sed -i 's/ $(tool.*\/stamp-compile)//g' ./wrt/Makefile
-            sed -i 's/ $(tool.*\/stamp-install)//g' ./wrt/Makefile
+          if [ -d "./wrt/staging_dir" ]; then
+            find "./wrt/staging_dir" -type d -name "stamp" -not -path "*target*" | while read -r DIR; do
+              find "$DIR" -type f -exec touch {} +
+            done
+
+            mkdir -p ./wrt/tmp && echo "1" > ./wrt/tmp/.build
 
             echo "toolchain skiped done!"
           else
+            echo "caches missed!"
+          fi
+
+          if ${{steps.check-cache.outputs.cache-hit != 'true'}}; then
             CACHE_LIST=$(gh cache list --key "$WRT_TARGET-$WRT_VER" | cut -f 1)
             for CACHE_KEY in $CACHE_LIST; do
                gh cache delete $CACHE_KEY
@@ -167,8 +175,6 @@ jobs:
       - name: Custom Settings
         run: |
           cd ./wrt/
-
-          rm -rf ./tmp* ./.config*
 
           cat $GITHUB_WORKSPACE/Config/$WRT_TARGET.txt $GITHUB_WORKSPACE/Config/GENERAL.txt >> .config
 
@@ -209,6 +215,8 @@ jobs:
           cp -f ./.config ./upload/Config_"$WRT_TARGET"_"$WRT_VER"_"$WRT_DATE".txt
 
           if [[ $WRT_TEST != 'true' ]]; then
+            KVER=$(find ./bin/targets/ -type f -name "*.manifest" -exec grep -oP '^kernel - \K[\d\.]+' {} \;)
+
             find ./bin/targets/ -iregex ".*\(buildinfo\|json\|manifest\|sha256sums\|packages\)$" -exec rm -rf {} +
 
             for TYPE in $WRT_TYPE ; do
@@ -223,8 +231,10 @@ jobs:
             find ./bin/targets/ -type f -exec mv -f {} ./upload/ \;
           fi
 
+          echo "WRT_KVER=${KVER:-none}" >> $GITHUB_ENV
+
       - name: Release Firmware
-        uses: softprops/action-gh-release@master
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{env.WRT_TARGET}}_${{env.WRT_VER}}_${{env.WRT_DATE}}
           files: ./wrt/upload/*.*
@@ -234,6 +244,8 @@ jobs:
             不要问，刷就完事了！
 
             全系带闭源硬件加速，别问了！
+
+            内核版本：${{env.WRT_KVER}}
 
             WIFI名称：${{env.WRT_SSID}}
             WIFI密码：${{env.WRT_WORD}}

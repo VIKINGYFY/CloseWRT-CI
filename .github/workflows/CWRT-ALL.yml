@@ -3,9 +3,9 @@ name: CWRT-ALL
 
 #CI计划
 on:
-  #自动编译：每周早上4点
+  #自动编译：每周早上6点
   schedule:
-    - cron: 0 20 * * 0
+    - cron: 0 22 * * 0
   #手动编译
   workflow_dispatch:
     inputs:
@@ -33,7 +33,7 @@ permissions: write-all
 #CI任务
 jobs:
   cleanup:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Delete old Releases and Workflows
         uses: ophub/delete-releases-workflows@main
