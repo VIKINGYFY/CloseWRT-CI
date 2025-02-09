@@ -38,7 +38,7 @@ UPDATE_PACKAGE "lazyoop" "lazyoop/networking-artifact" "main"
 
 if [[ $WRT_BRANCH == *"23.05"* ]]; then
 	UPDATE_PACKAGE "homeproxy" "VIKINGYFY/homeproxy" "main"
-	UPDATE_PACKAGE "mihomo" "morytyann/OpenWrt-mihomo" "main"
+	UPDATE_PACKAGE "nikki" "nikkinikki-org/OpenWrt-nikki" "main"
 fi
 
 #更新软件包版本
