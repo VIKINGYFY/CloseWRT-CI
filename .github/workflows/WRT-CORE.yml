@@ -34,9 +34,6 @@ on:
       WRT_SOURCE:
         required: false
         type: string
-      WRT_ADJUST:
-        required: false
-        type: string
       WRT_PACKAGE:
         required: false
         type: string
@@ -96,12 +93,10 @@ jobs:
           export WRT_DATE=$(TZ=UTC-8 date +"%y.%m.%d_%H.%M.%S")
           export WRT_CI=$(basename $GITHUB_WORKSPACE)
           export WRT_VER=$(echo $WRT_REPO | cut -d '/' -f 4)-$WRT_BRANCH
-          export WRT_TYPE=$(sed -n "1{s/^#//;s/\r$//;p;q}" $GITHUB_WORKSPACE/Config/$WRT_TARGET.txt)
 
           echo "WRT_DATE=$WRT_DATE" >> $GITHUB_ENV
           echo "WRT_CI=$WRT_CI" >> $GITHUB_ENV
           echo "WRT_VER=$WRT_VER" >> $GITHUB_ENV
-          echo "WRT_TYPE=$WRT_TYPE" >> $GITHUB_ENV
 
       - name: Clone Code
         run: |
@@ -173,11 +168,18 @@ jobs:
         run: |
           cd ./wrt/
 
-          cat $GITHUB_WORKSPACE/Config/$WRT_TARGET.txt $GITHUB_WORKSPACE/Config/GENERAL.txt >> .config
+          if [ -d "defconfig" ]; then
+            find ./defconfig -type f -iname "*$WRT_TARGET*" -exec cat {} + | sort | uniq > .config
 
-          $GITHUB_WORKSPACE/Scripts/Settings.sh
+            cat $GITHUB_WORKSPACE/Config/GENERAL.txt >> .config
 
-          make defconfig -j$(nproc) && make clean
+            $GITHUB_WORKSPACE/Scripts/Settings.sh
+
+            make defconfig -j$(nproc) && make clean
+          else
+            echo "defconfig directory not found, stopping workflow."
+            exit 0
+          fi
 
       - name: Download Packages
         if: env.WRT_TEST != 'true'
@@ -216,13 +218,11 @@ jobs:
 
             find ./bin/targets/ -iregex ".*\(buildinfo\|json\|manifest\|sha256sums\|packages\)$" -exec rm -rf {} +
 
-            for TYPE in $WRT_TYPE ; do
-              for FILE in $(find ./bin/targets/ -type f -iname "*$TYPE*.*") ; do
-                EXT=$(basename $FILE | cut -d '.' -f 2-)
-                NAME=$(basename $FILE | cut -d '.' -f 1 | grep -io "\($TYPE\).*")
-                NEW_FILE="$WRT_VER"_"$NAME"_"$WRT_DATE"."$EXT"
-                mv -f $FILE ./upload/$NEW_FILE
-              done
+            for FILE in $(find ./bin/targets/ -type f -iname "*.*") ; do
+              EXT=$(basename $FILE | cut -d '.' -f 2-)
+              NAME=$(basename $FILE | cut -d '.' -f 1)
+              NEW_FILE="$WRT_VER"_"$NAME"_"$WRT_DATE"."$EXT"
+              mv -f $FILE ./upload/$NEW_FILE
             done
 
             find ./bin/targets/ -type f -exec mv -f {} ./upload/ \;
@@ -250,6 +250,5 @@ jobs:
             源码：${{env.WRT_REPO}}
             分支：${{env.WRT_BRANCH}}
             平台：${{env.WRT_TARGET}}
-            设备：${{env.WRT_TYPE}}
             地址：${{env.WRT_IP}}
             密码：${{env.WRT_PW}}

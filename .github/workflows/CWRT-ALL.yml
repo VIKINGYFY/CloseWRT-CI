@@ -9,13 +9,8 @@ on:
   #手动编译
   workflow_dispatch:
     inputs:
-      ADJUST:
-        description: '内存低占用模式，默认关闭。'
-        default: 'false'
-        required: false
-        type: boolean
       PACKAGE:
-        description: '手动调整插件包，仅限一个。'
+        description: '手动调整插件包，多个请用\n符号隔开。'
         required: false
         type: string
       TEST:
@@ -50,13 +45,14 @@ jobs:
     name: ${{matrix.TARGET}}
     strategy:
       fail-fast: false
-      max-parallel: 3
+      max-parallel: 4
       matrix:
-        TARGET: [MTK-7981, MTK-7986]
+        TARGET: [MT7981, MT7986]
         REPO_INFO:
           - {SOURCE: hanwckf/immortalwrt-mt798x, BRANCH: openwrt-21.02}
           - {SOURCE: padavanonly/immortalwrt-mt798x, BRANCH: openwrt-21.02}
-          #- {SOURCE: padavanonly/immortalwrt-mt798x-23.05, BRANCH: openwrt-23.05}
+          - {SOURCE: padavanonly/immortalwrt-mt798x-23.05, BRANCH: openwrt-23.05}
+          - {SOURCE: NekokeCore/immortalwrt-mt798x-24.10, BRANCH: openwrt-24.10}
 
     #调用公用编译核心WRT-CORE.yml
     uses: ./.github/workflows/WRT-CORE.yml
@@ -81,8 +77,6 @@ jobs:
       WRT_BRANCH: ${{matrix.REPO_INFO.BRANCH}}
       #源码名称
       WRT_SOURCE: ${{matrix.REPO_INFO.SOURCE}}
-      #内存低占用模式
-      WRT_ADJUST: ${{inputs.ADJUST}}
       #插件调整
       WRT_PACKAGE: ${{inputs.PACKAGE}}
       #仅输出配置文件

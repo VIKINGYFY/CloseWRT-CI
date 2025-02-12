@@ -10,22 +10,18 @@ on:
         default: 'MTK-7981'
         required: true
         type: choice
-        options: [MTK-7981, MTK-7986, TEST]
+        options: [MT7981, MT7986, TEST]
       SOURCE:
-        default: 'padavanonly/immortalwrt-mt798x-23.05'
+        default: 'NekokeCore/immortalwrt-mt798x-24.10'
         required: true
         type: choice
-        options: [hanwckf/immortalwrt-mt798x, padavanonly/immortalwrt-mt798x, padavanonly/immortalwrt-mt798x-23.05]
+        options: [hanwckf/immortalwrt-mt798x, padavanonly/immortalwrt-mt798x, padavanonly/immortalwrt-mt798x-23.05, NekokeCore/immortalwrt-mt798x-24.10]
       BRANCH:
-        default: 'openwrt-23.05'
+        default: 'openwrt-24.10'
         required: true
         type: string
-      ADJUST:
-        description: '内存低占用模式，默认关闭。'
-        default: 'false'
-        required: true
-        type: boolean
       PACKAGE:
+        description: '手动调整插件包，多个请用\n符号隔开。'
         required: false
         type: string
       TEST:
@@ -64,8 +60,6 @@ jobs:
       WRT_BRANCH: ${{inputs.BRANCH}}
       #源码名称
       WRT_SOURCE: ${{inputs.SOURCE}}
-      #内存低占用模式
-      WRT_ADJUST: ${{inputs.ADJUST}}
       #插件调整
       WRT_PACKAGE: ${{inputs.PACKAGE}}
       #仅输出配置文件
