@@ -49,9 +49,9 @@ jobs:
       matrix:
         TARGET: [MT7981, MT7986]
         REPO_INFO:
-          - {SOURCE: hanwckf/immortalwrt-mt798x, BRANCH: openwrt-21.02}
-          - {SOURCE: padavanonly/immortalwrt-mt798x, BRANCH: openwrt-21.02}
-          - {SOURCE: padavanonly/immortalwrt-mt798x-23.05, BRANCH: openwrt-23.05}
+          #- {SOURCE: hanwckf/immortalwrt-mt798x, BRANCH: openwrt-21.02}
+          #- {SOURCE: padavanonly/immortalwrt-mt798x, BRANCH: openwrt-21.02}
+          #- {SOURCE: padavanonly/immortalwrt-mt798x-23.05, BRANCH: openwrt-23.05}
           - {SOURCE: NekokeCore/immortalwrt-mt798x-24.10, BRANCH: openwrt-24.10}
 
     #调用公用编译核心WRT-CORE.yml
