@@ -67,7 +67,7 @@ UPDATE_PACKAGE "luci-app-tailscale" "asvow/luci-app-tailscale" "main"
 
 UPDATE_PACKAGE "lazyoop" "lazyoop/networking-artifact" "main"
 
-if [[ $WRT_BRANCH == *"23.05"* ]]; then
+if [[ $WRT_BRANCH != *"21"* ]]; then
 	UPDATE_PACKAGE "homeproxy" "VIKINGYFY/homeproxy" "main"
 	UPDATE_PACKAGE "nikki" "nikkinikki-org/OpenWrt-nikki" "main"
 fi

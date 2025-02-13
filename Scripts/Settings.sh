@@ -26,6 +26,8 @@ echo "CONFIG_PACKAGE_luci=y" >> ./.config
 echo "CONFIG_LUCI_LANG_zh_Hans=y" >> ./.config
 echo "CONFIG_PACKAGE_luci-theme-$WRT_THEME=y" >> ./.config
 echo "CONFIG_PACKAGE_luci-app-$WRT_THEME-config=y" >> ./.config
+echo "CONFIG_TARGET_OPTIONS=y" >> ./.config
+echo "CONFIG_TARGET_OPTIMIZATION=\"-O2 -pipe -march=armv8-a+crypto+crc -mcpu=cortex-a53+crypto+crc -mtune=cortex-a53\"" >> ./.config
 sed -i '/MEMORY_SHRINK/d' ./.config
 
 #手动调整的插件
@@ -33,10 +35,9 @@ if [ -n "$WRT_PACKAGE" ]; then
 	echo -e "$WRT_PACKAGE" >> ./.config
 fi
 
-#23.05专用
-if [[ $WRT_BRANCH == *"23.05"* ]]; then
-	sed -i '/luci-app-upnp/d' ./.config
-	sed -i '/miniupnpd/d' ./.config
+#非21.02专用
+if [[ $WRT_BRANCH != *"21"* ]]; then
+	sed -i '/miniupnpd/d; /luci-app-upnp/d' ./.config
 
 	echo "CONFIG_PACKAGE_luci-app-upnp=n" >> ./.config
 	echo "CONFIG_PACKAGE_miniupnpd=n" >> ./.config
@@ -44,10 +45,4 @@ if [[ $WRT_BRANCH == *"23.05"* ]]; then
 	echo "CONFIG_PACKAGE_luci-app-homeproxy=y" >> ./.config
 	echo "CONFIG_PACKAGE_luci-app-nikki=y" >> ./.config
 	echo "CONFIG_PACKAGE_luci-app-upnp-mtk-adjust=y" >> ./.config
-fi
-
-#编译器优化
-if [[ $WRT_TARGET != *"X86"* ]]; then
-	echo "CONFIG_TARGET_OPTIONS=y" >> ./.config
-	echo "CONFIG_TARGET_OPTIMIZATION=\"-O2 -pipe -march=armv8-a+crypto+crc -mcpu=cortex-a53+crypto+crc -mtune=cortex-a53\"" >> ./.config
 fi

@@ -42,12 +42,12 @@ jobs:
 
   config:
     needs: cleanup
-    name: ${{matrix.TARGET}}
+    name: ${{matrix.CONFIG}}
     strategy:
       fail-fast: false
       max-parallel: 4
       matrix:
-        TARGET: [MT7981, MT7986]
+        CONFIG: [MT7981, MT7986]
         REPO_INFO:
           #- {SOURCE: hanwckf/immortalwrt-mt798x, BRANCH: openwrt-21.02}
           #- {SOURCE: padavanonly/immortalwrt-mt798x, BRANCH: openwrt-21.02}
@@ -57,8 +57,8 @@ jobs:
     #调用公用编译核心WRT-CORE.yml
     uses: ./.github/workflows/WRT-CORE.yml
     with:
-      #编译平台
-      WRT_TARGET: ${{matrix.TARGET}}
+      #编译配置
+      WRT_CONFIG: ${{matrix.CONFIG}}
       #默认主题
       WRT_THEME: argon
       #默认主机名
