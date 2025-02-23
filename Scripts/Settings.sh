@@ -28,9 +28,15 @@ echo "CONFIG_PACKAGE_luci-theme-$WRT_THEME=y" >> ./.config
 echo "CONFIG_PACKAGE_luci-app-$WRT_THEME-config=y" >> ./.config
 echo "CONFIG_TARGET_OPTIONS=y" >> ./.config
 echo "CONFIG_TARGET_OPTIMIZATION=\"-O2 -pipe -march=armv8-a+crypto+crc -mcpu=cortex-a53+crypto+crc -mtune=cortex-a53\"" >> ./.config
-sed -i '/MEMORY_SHRINK/d' ./.config
 
 #手动调整的插件
 if [ -n "$WRT_PACKAGE" ]; then
 	echo -e "$WRT_PACKAGE" >> ./.config
 fi
+
+#调整mtk系列配置
+sed -i '/MEMORY_SHRINK/d' ./.config
+sed -i '/luci-app-mtk/d' ./.config
+sed -i '/wifi-profile/d' ./.config
+echo "CONFIG_PACKAGE_luci-app-mtk=n" >> ./.config
+echo "CONFIG_PACKAGE_wifi-profile=n" >> ./.config
