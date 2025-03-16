@@ -1,17 +1,8 @@
 # CloseWRT-CI
 云编译CloseWRT固件
 
-HANWCKF-21.02源码：
-https://github.com/hanwckf/immortalwrt-mt798x.git
-
-PADAVANONLY-21.02源码：
-https://github.com/padavanonly/immortalwrt-mt798x.git
-
-PADAVANONLY-23.05源码：
-https://github.com/padavanonly/immortalwrt-mt798x-23.05.git
-
-DAILOOK-23.05源码：
-https://github.com/dailook/immortalwrt-mt798x-23.05.git
+PADAVANONLY-24.10源码：
+https://github.com/padavanonly/immortalwrt-mt798x-24.10.git
 
 NEKOKECORE-24.10源码：
 https://github.com/NekokeCore/immortalwrt-mt798x-24.10.git

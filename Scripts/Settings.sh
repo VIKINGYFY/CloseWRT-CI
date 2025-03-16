@@ -35,8 +35,7 @@ if [ -n "$WRT_PACKAGE" ]; then
 fi
 
 #调整mtk系列配置
-sed -i '/MEMORY_SHRINK/d' ./.config
-sed -i '/luci-app-mtk/d' ./.config
-sed -i '/wifi-profile/d' ./.config
-echo "CONFIG_PACKAGE_luci-app-mtk=n" >> ./.config
-echo "CONFIG_PACKAGE_wifi-profile=n" >> ./.config
+sed -i '/TARGET.*mediatek/d' ./.config
+sed -i '/TARGET_MULTI_PROFILE/d' ./.config
+sed -i '/TARGET_PER_DEVICE_ROOTFS/d' ./.config
+cat $GITHUB_WORKSPACE/Config/$WRT_CONFIG.txt >> .config
