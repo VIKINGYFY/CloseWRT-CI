@@ -86,10 +86,12 @@ jobs:
           export WRT_DATE=$(TZ=UTC-8 date +"%y.%m.%d_%H.%M.%S")
           export WRT_MARK=$(echo $GITHUB_REPOSITORY | cut -d '/' -f 1)
           export WRT_VER=$(echo $WRT_REPO | cut -d '/' -f 4)-$WRT_BRANCH
+          export WRT_TARGET=$(grep -m 1 -oP '^CONFIG_TARGET_\K[\w]+(?=\=y)' ./Config/$WRT_CONFIG.txt | tr '[:lower:]' '[:upper:]')
 
           echo "WRT_DATE=$WRT_DATE" >> $GITHUB_ENV
           echo "WRT_MARK=$WRT_MARK" >> $GITHUB_ENV
           echo "WRT_VER=$WRT_VER" >> $GITHUB_ENV
+          echo "WRT_TARGET=$WRT_TARGET" >> $GITHUB_ENV
 
       - name: Clone Code
         run: |
@@ -209,7 +211,6 @@ jobs:
 
           if [[ $WRT_TEST != 'true' ]]; then
             KVER=$(find ./bin/targets/ -type f -name "*.manifest" -exec grep -oP '^kernel - \K[\d\.]+' {} \;)
-            WRT_TARGET=$(grep -m 1 -oP '^CONFIG_TARGET_\K[\w]+(?=\=y)' ./.config | tr '[:lower:]' '[:upper:]')
 
             find ./bin/targets/ -iregex ".*\(buildinfo\|json\|manifest\|sha256sums\|packages\)$" -exec rm -rf {} +
 
@@ -226,7 +227,6 @@ jobs:
           fi
 
           echo "WRT_KVER=${KVER:-none}" >> $GITHUB_ENV
-          echo "WRT_TARGET=$WRT_TARGET" >> $GITHUB_ENV
 
       - name: Release Firmware
         uses: softprops/action-gh-release@v2
