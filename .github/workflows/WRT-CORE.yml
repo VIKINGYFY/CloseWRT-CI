@@ -208,7 +208,7 @@ jobs:
 
           if [[ $WRT_TEST != 'true' ]]; then
             echo "WRT_KVER=$(find ./bin/targets/ -type f -name "*.manifest" -exec grep -oP '^kernel - \K[\d\.]+' {} \;)" >> $GITHUB_ENV
-            echo "WRT_LIST=$(find ./bin/targets/ -type f -name "*.manifest" -exec grep -oP '^luci-app[^ ]*' {} \; | tr '\n' ' ')" >> $GITHUB_ENV
+            echo "WRT_LIST=$(find ./bin/targets/ -type f -name "*.manifest" -exec grep -oP '^luci-(app|theme)[^ ]*' {} \; | tr '\n' ' ')" >> $GITHUB_ENV
 
             find ./bin/targets/ -iregex ".*\(buildinfo\|json\|sha256sums\|packages\)$" -exec rm -rf {} +
 
@@ -232,7 +232,7 @@ jobs:
           echo -e "请注意选择你需要的设备固件！" >> ./release.txt
           echo -e "不要问，刷就完事了！" >> ./release.txt
           echo -e "" >> ./release.txt
-          echo -e "全系带开源硬件加速，别问了！" >> ./release.txt
+          echo -e "全系带闭源硬件加速，别问了！" >> ./release.txt
           echo -e "" >> ./release.txt
           echo -e "源码：$WRT_REPO" >> ./release.txt
           echo -e "分支：$WRT_BRANCH" >> ./release.txt
