@@ -10,7 +10,7 @@ CONFIG_PACKAGE_luci-app-mtwifi-cfg=y
 CONFIG_PACKAGE_luci-app-turboacc-mtk=y
 CONFIG_PACKAGE_luci-app-upnp-mtk-adjust=y
 CONFIG_PACKAGE_luci-app-zerotier=y
-
+CONFIG_PACKAGE_luci-app-cpufreq=y
 #删除插件
 CONFIG_PACKAGE_luci-app-wol=n
 CONFIG_PACKAGE_luci-app-ddns=n
