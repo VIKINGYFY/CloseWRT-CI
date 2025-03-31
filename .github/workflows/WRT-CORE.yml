@@ -232,7 +232,7 @@ jobs:
           echo -e "请注意选择你需要的设备固件！" >> ./release.txt
           echo -e "不要问，刷就完事了！" >> ./release.txt
           echo -e "" >> ./release.txt
-          echo -e "全系带开源硬件加速，别问了！" >> ./release.txt
+          echo -e "全系带闭源硬件加速，别问了！" >> ./release.txt
           echo -e "" >> ./release.txt
           echo -e "源码：$WRT_REPO" >> ./release.txt
           echo -e "分支：$WRT_BRANCH" >> ./release.txt
