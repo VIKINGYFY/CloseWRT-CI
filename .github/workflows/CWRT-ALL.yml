@@ -47,7 +47,7 @@ jobs:
       fail-fast: false
       #max-parallel: 4
       matrix:
-        CONFIG: [MT7981, MT7986]
+        CONFIG: [MT7981]
         REPO_INFO:
           - {SOURCE: "padavanonly/immortalwrt-mt798x-24.10", BRANCH: "2410"}
           #- {SOURCE: "dailook/immortalwrt-mt798x-23.05", BRANCH: "openwrt-23.05"}
@@ -61,13 +61,13 @@ jobs:
       #默认主题
       WRT_THEME: argon
       #默认主机名
-      WRT_NAME: CWRT
+      WRT_NAME: YT
       #默认WIFI名称
-      WRT_SSID: CWRT
+      WRT_SSID: CMCC
       #默认WIFI密码
       WRT_WORD: 12345678
       #默认地址
-      WRT_IP: 192.168.10.1
+      WRT_IP: 10.0.100.1
       #默认密码，仅作提示，修改无用
       WRT_PW: 无
       #源码链接
