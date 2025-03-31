@@ -1,82 +1,116 @@
-#CI项目
+###############################################################################
+# OpenWRT固件自动化编译工作流
+# 功能：自动编译包含和不包含gecoos应用的两种固件变体
+# 触发方式：定时触发(每日UTC 22:00) + 手动触发
+###############################################################################
+
 name: CWRT-ALL
 
-#CI计划
 on:
-  #自动编译：每天早上6点
+  # 定时触发配置 (北京时间早上6点)
   schedule:
-    - cron: 0 22 * * *
-  #手动编译
+    - cron: '0 22 * * *'  # 注意：cron表达式需要引号
+  
+  # 手动触发配置
   workflow_dispatch:
     inputs:
       PACKAGE:
-        description: '手动调整插件包，多个请用\n符号隔开。'
+        description: '📦 手动调整插件包(多个请用换行符分隔)'
         required: false
         type: string
       TEST:
-        description: '仅输出配置文件，不编译固件。'
+        description: '🧪 仅输出配置文件不编译固件'
         default: 'false'
         required: false
         type: boolean
 
 env:
-  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  # 使用GitHub自动生成的临时token
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-#CI权限
-permissions: write-all
+# 最小化所需权限
+permissions:
+  contents: write  # 用于创建release
+  workflows: write # 用于清理workflow运行记录
 
-#CI任务
 jobs:
+  ##############################################
+  # 清理任务：删除旧版本和workflow记录
+  # 注意：会保留3个最新release和7天内记录
+  ##############################################
   cleanup:
     runs-on: ubuntu-22.04
     steps:
-      - name: Delete old Releases and Workflows
+      - name: 🗑️ 清理历史版本
         uses: ophub/delete-releases-workflows@main
         with:
-          gh_token: ${{secrets.GITHUB_TOKEN}}
+          gh_token: ${{ secrets.GITHUB_TOKEN }}
           delete_releases: true
-          releases_keep_latest: 0
-          delete_tags: true
-          delete_workflows: true
-          workflows_keep_day: 0
+          releases_keep_latest: 3    # 重要：至少保留3个版本用于回滚
+          delete_tags: true          # 同步删除关联tag
+          delete_workflows: true     
+          workflows_keep_day: 7      # 保留7天运行记录
 
+  ##############################################
+  # 编译任务：并行构建两个固件变体
+  # 变体1：包含luci-app-gecoosac
+  # 变体2：不包含luci-app-gecoosac
+  ##############################################
   config:
-    needs: cleanup
-    name: ${{matrix.CONFIG}}
+    needs: cleanup  # 依赖清理任务完成
+    name: ${{ matrix.CONFIG }}-${{ matrix.BUILD_VARIANT.NAME }}
+    
+    # 并行执行策略配置
     strategy:
-      fail-fast: false
-      #max-parallel: 4
+      fail-fast: false  # 某个变体失败不影响其他变体
       matrix:
-        CONFIG: [MT7981]
+        # 设备型号矩阵（可扩展多个设备）
+        CONFIG: [MT7981]  
+        
+        # 构建变体定义
+        BUILD_VARIANT: 
+          - { 
+              NAME: "with-gecoos", 
+              EXTRA_PACKAGE: "CONFIG_PACKAGE_luci-app-gecoosac=y" 
+            }
+          - { 
+              NAME: "without-gecoos", 
+              EXTRA_PACKAGE: "CONFIG_PACKAGE_luci-app-gecoosac=n" 
+            }
+        
+        # 源码仓库配置（可扩展多个源码分支）
         REPO_INFO:
-          - {SOURCE: "padavanonly/immortalwrt-mt798x-24.10", BRANCH: "2410"}
-          #- {SOURCE: "dailook/immortalwrt-mt798x-23.05", BRANCH: "openwrt-23.05"}
-          #- {SOURCE: "NekokeCore/immortalwrt-mt798x-24.10", BRANCH: "openwrt-24.10"}
+          - { 
+              SOURCE: "padavanonly/immortalwrt-mt798x-24.10", 
+              BRANCH: "2410" 
+            }
 
-    #调用公用编译核心WRT-CORE.yml
+    # 调用共享编译流程
     uses: ./.github/workflows/WRT-CORE.yml
     with:
-      #编译配置
-      WRT_CONFIG: ${{matrix.CONFIG}}
-      #默认主题
-      WRT_THEME: argon
-      #默认主机名
-      WRT_NAME: YT
-      #默认WIFI名称
-      WRT_SSID: CMCC
-      #默认WIFI密码
-      WRT_WORD: 12345678
-      #默认地址
-      WRT_IP: 10.0.100.1
-      #默认密码，仅作提示，修改无用
-      WRT_PW: 无
-      #源码链接
-      WRT_REPO: https://github.com/${{matrix.REPO_INFO.SOURCE}}.git
-      #源码分支
-      WRT_BRANCH: ${{matrix.REPO_INFO.BRANCH}}
-      #源码名称
-      WRT_SOURCE: ${{matrix.REPO_INFO.SOURCE}}
-      #插件调整
-      WRT_PACKAGE: ${{inputs.PACKAGE}}
-      #仅输出配置文件
-      WRT_TEST: ${{inputs.TEST}}
+      # 基础配置
+      WRT_CONFIG: ${{ matrix.CONFIG }}      # 设备型号
+      WRT_THEME: argon                      # 默认主题
+      WRT_NAME: YT                          # 设备主机名
+      
+      # 网络配置（密码应从secrets获取）
+      WRT_SSID: CMCC                        # WiFi名称
+      WRT_WORD: ${{ secrets.WIFI_PASSWORD || '12345678' }}  # 优先使用secret
+      WRT_IP: 10.0.100.1                    # 管理地址
+      WRT_PW: ${{ secrets.ADMIN_PASSWORD || '无' }}  # 管理密码
+      
+      # 源码配置
+      WRT_REPO: https://github.com/${{ matrix.REPO_INFO.SOURCE }}.git
+      WRT_BRANCH: ${{ matrix.REPO_INFO.BRANCH }}
+      WRT_SOURCE: ${{ matrix.REPO_INFO.SOURCE }}
+      
+      # 动态包配置
+      WRT_PACKAGE: |
+        # 自动插入变体特定配置
+        ${{ matrix.BUILD_VARIANT.EXTRA_PACKAGE }}
+        
+        # 手动输入的额外包配置
+        ${{ inputs.PACKAGE }}
+      
+      # 测试模式开关
+      WRT_TEST: ${{ inputs.TEST }}
