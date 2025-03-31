@@ -1,10 +1,7 @@
 #科学插件调整
 CONFIG_PACKAGE_luci-app-homeproxy=y
-CONFIG_PACKAGE_luci-app-nikki=y
 #增加插件
-CONFIG_PACKAGE_luci-app-samba4=y
 CONFIG_PACKAGE_luci-app-wolplus=y
-CONFIG_PACKAGE_luci-app-gecoosac=y
 CONFIG_PACKAGE_luci-app-tailscale=y
 CONFIG_PACKAGE_luci-app-autoreboot=y
 CONFIG_PACKAGE_openssh-sftp-server=y
@@ -12,12 +9,12 @@ CONFIG_PACKAGE_luci-app-eqos-mtk=y
 CONFIG_PACKAGE_luci-app-mtwifi-cfg=y
 CONFIG_PACKAGE_luci-app-turboacc-mtk=y
 CONFIG_PACKAGE_luci-app-upnp-mtk-adjust=y
+CONFIG_PACKAGE_luci-app-zerotier=y
 #删除插件
 CONFIG_PACKAGE_luci-app-wol=n
 CONFIG_PACKAGE_luci-app-ddns=n
 CONFIG_PACKAGE_luci-app-vlmcsd=n
 CONFIG_PACKAGE_luci-app-xlnetacc=n
-CONFIG_PACKAGE_luci-app-zerotier=n
 CONFIG_PACKAGE_luci-app-wireguard=n
 CONFIG_PACKAGE_luci-app-ipsec-vpnd=n
 CONFIG_PACKAGE_luci-app-adbyby-plus=n
@@ -28,6 +25,10 @@ CONFIG_PACKAGE_luci-app-fileassistant=n
 CONFIG_PACKAGE_luci-app-eqos=n
 CONFIG_PACKAGE_luci-app-mtk=n
 CONFIG_PACKAGE_wifi-profile=n
+#默认配置删除的
+CONFIG_PACKAGE_luci-app-nikki=n
+CONFIG_PACKAGE_luci-app-samba4=n
+CONFIG_PACKAGE_luci-app-gecoosac=n
 #参数调整
 CONFIG_DEVEL=y
 CONFIG_CCACHE=y
