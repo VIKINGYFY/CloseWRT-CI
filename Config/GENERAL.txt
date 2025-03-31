@@ -10,7 +10,7 @@ CONFIG_PACKAGE_luci-app-mtwifi-cfg=y
 CONFIG_PACKAGE_luci-app-turboacc-mtk=y
 CONFIG_PACKAGE_luci-app-upnp-mtk-adjust=y
 CONFIG_PACKAGE_luci-app-zerotier=y
-CONFIG_PACKAGE_luci-app-cpufreq=y
+CONFIG_PACKAGE_luci-app-gecoosac=y
 #删除插件
 CONFIG_PACKAGE_luci-app-wol=n
 CONFIG_PACKAGE_luci-app-ddns=n
@@ -26,11 +26,8 @@ CONFIG_PACKAGE_luci-app-fileassistant=n
 CONFIG_PACKAGE_luci-app-eqos=n
 CONFIG_PACKAGE_luci-app-mtk=n
 CONFIG_PACKAGE_wifi-profile=n
-CONFIG_PACKAGE_luci-app-gecoosac=n
-#默认配置删除的
 CONFIG_PACKAGE_luci-app-nikki=n
 CONFIG_PACKAGE_luci-app-samba4=n
-
 #参数调整
 CONFIG_DEVEL=y
 CONFIG_CCACHE=y

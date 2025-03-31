@@ -47,7 +47,7 @@ jobs:
       fail-fast: false
       #max-parallel: 4
       matrix:
-        CONFIG: [Komi-a31, Komi-a31_集客AC_new]
+        CONFIG: [Komi-a31]
         REPO_INFO:
           - {SOURCE: "padavanonly/immortalwrt-mt798x-24.10", BRANCH: "2410"}
           #- {SOURCE: "dailook/immortalwrt-mt798x-23.05", BRANCH: "openwrt-23.05"}
