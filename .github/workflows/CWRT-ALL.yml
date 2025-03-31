@@ -42,15 +42,12 @@ jobs:
 
   config:
     needs: cleanup
-    name: ${{matrix.CONFIG}}-${{matrix.BUILD_VARIANT}}
+    name: ${{matrix.CONFIG}}
     strategy:
       fail-fast: false
       #max-parallel: 4
       matrix:
         CONFIG: [MT7981]
-        BUILD_VARIANT: 
-          - { NAME: "with-gecoos", EXTRA_PACKAGE: "CONFIG_PACKAGE_luci-app-gecoosac=y" }
-          - { NAME: "without-gecoos", EXTRA_PACKAGE: "CONFIG_PACKAGE_luci-app-gecoosac=n" }
         REPO_INFO:
           - {SOURCE: "padavanonly/immortalwrt-mt798x-24.10", BRANCH: "2410"}
           #- {SOURCE: "dailook/immortalwrt-mt798x-23.05", BRANCH: "openwrt-23.05"}
@@ -76,9 +73,7 @@ jobs:
       #源码链接
       WRT_REPO: https://github.com/${{matrix.REPO_INFO.SOURCE}}.git
       #源码分支
-      WRT_BRANCH: 
-        ${{matrix.BUILD_VARIANT.EXTRA_PACKAGE}}
-        ${{inputs.PACKAGE}}
+      WRT_BRANCH: ${{inputs.PACKAGE}}
       #源码名称
       WRT_SOURCE: ${{matrix.REPO_INFO.SOURCE}}
       #插件调整
