@@ -1,4 +1,9 @@
-
+#设备型号
+CONFIG_TARGET_mediatek=y
+CONFIG_TARGET_mediatek_mt7981=y
+CONFIG_TARGET_DEVICE_mediatek_mt7981_DEVICE_konka_komi-a31=y
+CONFIG_MTK_MT7981_NEW_FW=n
+# 不含科学上网
 #增加插件
 CONFIG_PACKAGE_luci-app-wolplus=y
 CONFIG_PACKAGE_luci-app-tailscale=y
