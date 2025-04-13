@@ -10,18 +10,22 @@ on:
         default: 'MTK-7981'
         required: true
         type: choice
-        options: [MT7981, MT7986, TEST]
+        options:
+          - MT7981
+          - MT7986
+          - TEST
       SOURCE:
         default: 'padavanonly/immortalwrt-mt798x-24.10'
         required: true
         type: choice
-        options: [padavanonly/immortalwrt-mt798x-24.10, NekokeCore/immortalwrt-mt798x-24.10]
+        options:
+         - padavanonly/immortalwrt-mt798x-24.10
+         - NekokeCore/immortalwrt-mt798x-24.10
       BRANCH:
         default: '2410'
         required: true
         type: string
       PACKAGE:
-        description: '手动调整插件包，多个请用\n符号隔开。'
         required: false
         type: string
       TEST:
@@ -35,7 +39,7 @@ permissions: write-all
 
 #CI任务
 jobs:
-  wrt_config:
+  config:
     name: ${{inputs.CONFIG}}
     #调用公用编译核心WRT-CORE.yml
     uses: ./.github/workflows/WRT-CORE.yml
