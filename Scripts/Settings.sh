@@ -38,4 +38,6 @@ sed -i '/TARGET_MULTI_PROFILE/d' ./.config
 sed -i '/TARGET_PER_DEVICE_ROOTFS/d' ./.config
 sed -i '/luci-app-eqos/d' ./.config
 sed -i '/luci-app-mtk/d' ./.config
+sed -i '/luci-app-upnp/d' ./.config
+sed -i '/luci-app-wol/d' ./.config
 sed -i '/wifi-profile/d' ./.config
