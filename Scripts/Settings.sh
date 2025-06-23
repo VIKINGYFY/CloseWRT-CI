@@ -32,12 +32,7 @@ if [ -n "$WRT_PACKAGE" ]; then
 	echo -e "$WRT_PACKAGE" >> ./.config
 fi
 
-#调整mtk系列配置
-sed -i '/TARGET.*mediatek/d' ./.config
-sed -i '/TARGET_MULTI_PROFILE/d' ./.config
-sed -i '/TARGET_PER_DEVICE_ROOTFS/d' ./.config
+#闭源MTK平台调整
 sed -i '/luci-app-eqos/d' ./.config
 sed -i '/luci-app-mtk/d' ./.config
-sed -i '/luci-app-upnp/d' ./.config
-sed -i '/luci-app-wol/d' ./.config
 sed -i '/wifi-profile/d' ./.config
