@@ -3,10 +3,6 @@ CONFIG_PACKAGE_luci-app-homeproxy=y
 #增加插件
 CONFIG_PACKAGE_luci-app-autoreboot=y
 CONFIG_PACKAGE_luci-app-gecoosac=y
-CONFIG_PACKAGE_luci-app-netspeedtest=y
-CONFIG_PACKAGE_luci-app-partexp=y
-CONFIG_PACKAGE_luci-app-samba4=y
-CONFIG_PACKAGE_luci-app-tailscale=y
 CONFIG_PACKAGE_luci-app-upnp=y
 CONFIG_PACKAGE_luci-app-wolplus=y
 #删除插件
@@ -346,4 +342,5 @@ CONFIG_WARP_DBG_SUPPORT=y
 CONFIG_WARP_MEMORY_LEAK_DBG=y
 CONFIG_WARP_NEW_FW=y
 CONFIG_WARP_VERSION=2
+
 CONFIG_WED_HW_RRO_SUPPORT=y
