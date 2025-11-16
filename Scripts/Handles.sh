@@ -86,12 +86,12 @@ if [ -f "$DM_FILE" ]; then
 	cd $PKG_PATH && echo "diskman has been fixed!"
 fi
 
-#移除sb内核回溯移植补丁
-SB_PATCH="../feeds/packages/net/sing-box/patches"
-if [ -d "$SB_PATCH" ]; then
+#移除luci-app-attendedsysupgrade概览页面
+ASU_FILE=$(find ../feeds/luci/applications/luci-app-attendedsysupgrade/ -type f -name "11_upgrades.js")
+if [ -f "$ASU_FILE" ]; then
 	echo " "
 
-	rm -rf $SB_PATCH
+	rm -rf $ASU_FILE
 
-	cd $PKG_PATH && echo "sing-box patches has been fixed!"
+	cd $PKG_PATH && echo "attendedsysupgrade has been fixed!"
 fi
