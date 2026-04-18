@@ -18,11 +18,11 @@ on:
           - MT7986
           - TEST
       SOURCE:
-        default: 'padavanonly/immortalwrt-mt798x-6.6'
+        default: 'Yuzhii0718/immortalwrt-mt798x-6.6-padavanonly'
         required: true
         type: choice
         options:
-         - padavanonly/immortalwrt-mt798x-6.6
+         - Yuzhii0718/immortalwrt-mt798x-6.6-padavanonly
       BRANCH:
         default: 'openwrt-24.10-6.6'
         required: true
