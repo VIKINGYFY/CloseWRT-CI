@@ -6,7 +6,7 @@ name: CWRT-ALL
 
 #CI计划
 on:
-  #自动编译：早上6点
+  #自动编译：每周一早上6点
   schedule:
     - cron: 0 22 * * 0
   #手动编译
