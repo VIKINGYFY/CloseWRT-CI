@@ -2,6 +2,8 @@
 
 源码：
 
+https://github.com/chasey-dev/immortalwrt-mt798x-rebase.git
+
 https://github.com/Yuzhii0718/immortalwrt-mt798x-6.6-padavanonly.git
 
 # U-BOOT
