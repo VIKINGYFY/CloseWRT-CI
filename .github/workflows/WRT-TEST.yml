@@ -33,7 +33,7 @@ on:
         type: string
       TEST:
         description: '仅输出配置文件，不编译固件。'
-        default: 'true'
+        default: true
         required: true
         type: boolean
 
@@ -70,4 +70,4 @@ jobs:
       #插件调整
       WRT_PACKAGE: ${{inputs.PACKAGE}}
       #仅输出配置文件
-      WRT_TEST: ${{inputs.TEST}}
+      WRT_TEST: ${{inputs.TEST || false}}
