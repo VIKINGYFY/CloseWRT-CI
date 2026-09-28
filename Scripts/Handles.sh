@@ -49,17 +49,6 @@ if [ -d "$PACKAGE_PATH/luci-app-natmapt" ]; then
 	fi
 fi
 
-#修复QModem依赖循环
-if [ -d "$PACKAGE_PATH/QModem" ]; then
-	echo " "
-	if sed -i 's/@!PACKAGE_luci-app-qmodem //g; s/+luci-app-qmodem-next/luci-app-qmodem-next/g' \
-		"$PACKAGE_PATH/QModem/luci/luci-app-qmodem-next/Makefile"; then
-		echo "QModem has been fixed!"
-	else
-		echo "QModem fix failed; continuing!"
-	fi
-fi
-
 #修复Rust编译失败
 if [ -d "$FEEDS_PATH/packages/lang/rust" ]; then
 	echo " "
