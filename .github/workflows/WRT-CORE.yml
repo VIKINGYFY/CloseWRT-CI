@@ -184,6 +184,7 @@ jobs:
 
           $GITHUB_WORKSPACE/Scripts/Packages.sh
           $GITHUB_WORKSPACE/Scripts/Handles.sh
+          $GITHUB_WORKSPACE/.github/scripts/prepare-i2c-tools.sh
 
       - name: Custom Settings
         run: |
@@ -196,8 +197,16 @@ jobs:
           fi
 
           $GITHUB_WORKSPACE/Scripts/Settings.sh
+          $GITHUB_WORKSPACE/.github/scripts/prepare-build-host.sh
 
           make defconfig -j$(nproc) && make clean -j$(nproc)
+
+      - name: Prepare Rust Toolchain
+        if: ${{ !inputs.WRT_TEST }}
+        run: |
+          cd ./wrt/
+
+          $GITHUB_WORKSPACE/.github/scripts/prepare-rust.sh
 
       - name: Download Packages
         if: ${{ !inputs.WRT_TEST }}
@@ -211,7 +220,26 @@ jobs:
         run: |
           cd ./wrt/
 
-          make -j$(nproc) || make -j1 V=s
+          mkdir -p $GITHUB_WORKSPACE/build-reports
+          make -j$(nproc) BUILD_TIME_LOG="$GITHUB_WORKSPACE/build-reports/parallel.tsv" || \
+            make -j1 V=s BUILD_TIME_LOG="$GITHUB_WORKSPACE/build-reports/serial.tsv"
+
+      - name: Collect Build Reports
+        if: ${{ !inputs.WRT_TEST && always() }}
+        continue-on-error: true
+        run: |
+          cd ./wrt/
+
+          $GITHUB_WORKSPACE/.github/scripts/collect-build-reports.sh
+
+      - name: Upload Build Reports
+        if: ${{ !inputs.WRT_TEST && always() }}
+        continue-on-error: true
+        uses: actions/upload-artifact@v7
+        with:
+          name: build-reports-${{env.WRT_CONFIG}}-${{env.WRT_INFO}}-${{github.run_attempt}}
+          path: ./build-reports/
+          retention-days: 7
 
       - name: Save Build Cache
         if: ${{ !inputs.WRT_TEST && success() && steps.cache-restore.outputs.cache-hit != 'true' }}
