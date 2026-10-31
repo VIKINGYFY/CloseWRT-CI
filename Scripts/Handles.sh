@@ -44,3 +44,20 @@ FIX "mini-diskmanager" "$PACKAGE_PATH/luci-app-mini-diskmanager" sed -i "s/servi
 #修改natmapt菜单位置
 FIX "natmapt" "$PACKAGE_PATH/luci-app-natmapt" sed -i "s/network/services/g" \
 	"$PACKAGE_PATH/luci-app-natmapt/root/usr/share/luci/menu.d/luci-app-natmap.json"
+
+# SDK 已提供 ndisc6 时，移除 QModem 内重复定义的副本。
+if [ -d "$PACKAGE_PATH/mtk/applications/ndisc" ]; then
+	FIX "qmodem-ndisc" "$PACKAGE_PATH/QModem/application/ndisc6" rm -rf \
+		"$PACKAGE_PATH/QModem/application/ndisc6"
+fi
+
+# 保留 meta 一侧的冲突声明，避免双向 CONFLICTS 形成 Kconfig 循环。
+FIX "mihomo-conflicts" "$PACKAGE_PATH/OpenWrt-nikki/mihomo-alpha" sed -i \
+	'/^  CONFLICTS:=mihomo-meta$/d' "$PACKAGE_PATH/OpenWrt-nikki/mihomo-alpha/Makefile"
+
+# 避免新版 WeeChat 虚拟依赖生成 Kconfig 自循环。
+if grep -q '^define Package/weechat-minimal$' "$FEEDS_PATH/packages/net/weechat/Makefile"; then
+	FIX "weechat-dependency" "$FEEDS_PATH/luci/applications/luci-app-weechat" sed -i \
+		's/ +weechat / +!PACKAGE_weechat-full:weechat-minimal +PACKAGE_weechat-full:weechat-full /g' \
+		"$FEEDS_PATH/luci/applications/luci-app-weechat/Makefile"
+fi

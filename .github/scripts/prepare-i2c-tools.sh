@@ -13,7 +13,8 @@ if ! grep -Fqx 'PKG_CONFIG_DEPENDS:=CONFIG_PACKAGE_python3-smbus' "$I2C_MAKEFILE
 	# Keep the Make expressions literal; they are intentionally not shell-expanded.
 	# shellcheck disable=SC2016
 	sed -i \
-		-e 's/^PKG_BUILD_DEPENDS:=python-setuptools\/host$/PKG_CONFIG_DEPENDS:=CONFIG_PACKAGE_python3-smbus\nPKG_BUILD_DEPENDS:=PACKAGE_python3-smbus:python-setuptools\/host/' \
+		-e '/^PKG_BUILD_PARALLEL:=1$/a PKG_CONFIG_DEPENDS:=CONFIG_PACKAGE_python3-smbus' \
+		-e 's/^PKG_BUILD_DEPENDS:=python-setuptools\/host$/PKG_BUILD_DEPENDS:=PACKAGE_python3-smbus:python-setuptools\/host/' \
 		-e 's/^\t$(call Py3Build\/Compile)$/\t$(if $(CONFIG_PACKAGE_python3-smbus),$(call Py3Build\/Compile))/' \
 		-e 's/^\t$(call Py3Build\/Install)$/\t$(if $(CONFIG_PACKAGE_python3-smbus),$(call Py3Build\/Install))/' \
 		-e 's/^  DEPENDS:=+libi2c +python3-light$/  DEPENDS:=+libi2c +PACKAGE_python3-smbus:python3-light/' \
@@ -21,7 +22,10 @@ if ! grep -Fqx 'PKG_CONFIG_DEPENDS:=CONFIG_PACKAGE_python3-smbus' "$I2C_MAKEFILE
 fi
 
 grep -Fqx 'PKG_CONFIG_DEPENDS:=CONFIG_PACKAGE_python3-smbus' "$I2C_MAKEFILE"
-grep -Fqx 'PKG_BUILD_DEPENDS:=PACKAGE_python3-smbus:python-setuptools/host' "$I2C_MAKEFILE"
+# The 24.10 feed has no explicit setuptools host dependency.
+if grep -q '^PKG_BUILD_DEPENDS:=' "$I2C_MAKEFILE"; then
+	grep -Fqx 'PKG_BUILD_DEPENDS:=PACKAGE_python3-smbus:python-setuptools/host' "$I2C_MAKEFILE"
+fi
 grep -Fqx '  DEPENDS:=+libi2c +PACKAGE_python3-smbus:python3-light' "$I2C_MAKEFILE"
 grep -Fqx $'\t$(if $(CONFIG_PACKAGE_python3-smbus),$(call Py3Build/Compile))' "$I2C_MAKEFILE"
 grep -Fqx $'\t$(if $(CONFIG_PACKAGE_python3-smbus),$(call Py3Build/Install))' "$I2C_MAKEFILE"

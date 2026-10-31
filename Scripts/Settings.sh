@@ -11,14 +11,18 @@ find ./feeds/luci/modules/luci-mod-system/ -type f -name "flash.js" -exec sed -i
 #添加编译日期标识
 find ./feeds/luci/modules/luci-mod-status/ -type f -name "10_system.js" -exec sed -i "s/(\(luciversion || ''\))/(\1) + (' \/ $WRT_MARK-$WRT_DATE')/g" {} +
 
-WIFI_FILE="./package/mtk/applications/mtwifi-cfg/files/mtwifi.sh"
-if [ -f "$WIFI_FILE" ]; then
-	#修改WIFI名称
-	sed -i "s/ImmortalWrt/$WRT_SSID/g" $WIFI_FILE
-	#修改WIFI加密
-	sed -i "s/encryption=.*/encryption='psk2+ccmp'/g" $WIFI_FILE
-	#修改WIFI密码
-	sed -i "/set wireless.default_\${dev}.encryption='psk2+ccmp'/a \\\t\t\t\t\t\set wireless.default_\${dev}.key='$WRT_WORD'" $WIFI_FILE
+MTWIFI_SH="./package/mtk/applications/mtwifi-cfg/files/mtwifi.sh"
+if [ -f "$MTWIFI_SH" ]; then
+	#修改默认名称密码
+	sed -i -E "s/ImmortalWrt/$WRT_SSID/g; s/(.*)encryption=none/\1encryption=psk2+ccmp\n\1key=$WRT_WORD/" $MTWIFI_SH
+fi
+
+MTWIFI_UC="./package/mtk/applications/mtwifi-cfg-ucode/files/lib/wifi/mtwifi.uc"
+if [ -f "$MTWIFI_UC" ]; then
+	#修改默认名称密码
+	sed -i "s/ImmortalWrt/$WRT_SSID/g; s/\"none\"/\"psk2+ccmp\", \"key\": \"$WRT_WORD\"/" $MTWIFI_UC
+	# 使用对应的用户态组件，避免与旧 Lua 组件同时选中。
+	printf '# CONFIG_PACKAGE_mtwifi-cfg is not set\n# CONFIG_PACKAGE_iwinfo is not set\nCONFIG_PACKAGE_mtwifi-cfg-ucode=y\n' >> .config
 fi
 
 CFG_FILE="./package/base-files/files/bin/config_generate"
