@@ -1,0 +1,58 @@
+name: Build UFI103S kernel with IMS crypto (VoLTE fix)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - ufi103s-volte-kernel
+
+permissions: write-all
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout author's kernel source
+        uses: actions/checkout@v4
+        with:
+          repository: voidcode100/msm8916-mainline-ufi103s
+          ref: wip/msm8916/7.0
+
+      - name: Install cross toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential bc bison flex \
+            libssl-dev libncurses-dev aarch64-linux-gnu-gcc
+
+      - name: Enable MD5 and NULL crypto for 3GPP IMS IPSec
+        run: |
+          F=arch/arm64/configs/ufi103s_v03_defconfig
+          sed -i 's/^# CONFIG_CRYPTO_MD5 is not set$/CONFIG_CRYPTO_MD5=y/' "$F"
+          sed -i 's/^# CONFIG_CRYPTO_NULL is not set$/CONFIG_CRYPTO_NULL=y/' "$F"
+          grep -q '^CONFIG_CRYPTO_MD5=y$' "$F"
+          grep -q '^CONFIG_CRYPTO_NULL=y$' "$F"
+          echo '--- patched lines ---'
+          grep -E 'CONFIG_CRYPTO_(MD5|NULL)' "$F"
+
+      - name: Build kernel
+        run: |
+          make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- ufi103s_v03_defconfig
+          make -j$(nproc) ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-
+
+      - name: Collect artifacts
+        run: |
+          mkdir -p artifacts
+          cp arch/arm64/boot/Image.gz artifacts/vmlinuz-7.0.0-spunckore
+          cp System.map artifacts/
+          cp .config artifacts/config-7.0.0-spunckore
+          gzip -c .config > artifacts/config-7.0.0-spunckore.gz
+          find arch/arm64/boot/dts -name '*.dtb' -exec cp {} artifacts/ \; 2>/dev/null || true
+          echo '--- artifacts ---'
+          ls -lh artifacts
+
+      - name: Upload kernel
+        uses: actions/upload-artifact@v4
+        with:
+          name: kernel-volte-7.0-spunckore
+          path: artifacts/
+          if-no-files-found: error
